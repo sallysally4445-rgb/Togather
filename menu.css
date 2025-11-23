@@ -1,0 +1,86 @@
+/* ===== NAVBAR (Volunteer Style with Dropdown) ===== */
+header {
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  position:absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px white);
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: bold;
+  color: #00bfff;
+  letter-spacing: 1px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  position: relative;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #00bfff;
+  transform: scale(1.05);
+}
+
+/* ===== DROPDOWN ===== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
+  padding: 10px 0;
+  min-width: 180px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.dropdown-content a:hover {
+  background: #00bfff;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

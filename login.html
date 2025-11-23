@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In | Togather</title>
+  <link rel="shortcut icon" href="Logo1.png"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      color: white;
+    }
+
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 30, 0.25);
+      z-index: -1;
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 380px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .login-container img {
+      width: 140px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 12px;
+      left: 15px;
+      color: #aaa;
+    }
+
+    .input-group input, .custom-dropdown .selected {
+      width: 100%;
+      padding: 12px 15px 12px 40px;
+      border: none;
+      outline: none;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 15px;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .input-group input::placeholder, .custom-dropdown .selected {
+      color: #ddd;
+    }
+
+    .input-group input:focus, .custom-dropdown .selected:focus {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      outline: none;
+      border-radius: 30px;
+      background-color: #00bcd4;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0097a7;
+    }
+
+    .signup-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #ddd;
+    }
+
+    .signup-link a {
+      color: #00bcd4;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Dropdown styles */
+    .custom-dropdown {
+      position: relative;
+    }
+
+    .custom-dropdown .dropdown {
+      position: relative;
+    }
+
+    .custom-dropdown .selected {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .custom-dropdown .selected::after {
+      content: "\f0d7"; /* Font Awesome down arrow */
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      color: #ddd;
+      margin-right: 15px;
+    }
+
+    .custom-dropdown .options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      overflow: hidden;
+      display: none;
+      z-index: 10;
+    }
+
+    .custom-dropdown .options div {
+      padding: 12px 15px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .custom-dropdown .options div:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop id="background-video">
+    <source src="Sea.mp4" type="video/mp4" />
+  </video>
+  <div id="overlay"></div>
+
+  <div class="login-container">
+    <img src="Logo.png" alt="Togather Logo">
+    <h2>Welcome Back</h2>
+    <form id="loginForm">
+      <!-- Username -->
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="loginUsername" placeholder="Username or Email" required>
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+      </div>
+
+      <!-- Role selection -->
+      <div class="input-group custom-dropdown">
+        <i class="fas fa-users"></i>
+        <div class="dropdown">
+          <div class="selected">Select Role</div>
+          <div class="options">
+            <div data-value="user">User</div>
+            <div data-value="ngo">NGO Staff</div>
+          </div>
+        </div>
+        <input type="hidden" id="roleInput" required>
+      </div>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <div class="signup-link">
+      Don’t have an account? <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+
+  <script>
+    // Dropdown functionality
+    const dropdown = document.querySelector('.custom-dropdown .dropdown');
+    const selected = dropdown.querySelector('.selected');
+    const optionsContainer = dropdown.querySelector('.options');
+    const optionsList = optionsContainer.querySelectorAll('div');
+    const roleInput = document.getElementById('roleInput');
+
+    selected.addEventListener('click', () => {
+      optionsContainer.style.display = optionsContainer.style.display === 'block' ? 'none' : 'block';
+    });
+
+    optionsList.forEach(option => {
+      option.addEventListener('click', () => {
+        selected.textContent = option.textContent;
+        roleInput.value = option.getAttribute('data-value');
+        optionsContainer.style.display = 'none';
+      });
+    });
+
+    document.addEventListener('click', function(e){
+      if(!dropdown.contains(e.target)){
+        optionsContainer.style.display = 'none';
+      }
+    });
+
+    // Redirect after login based on role
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const role = roleInput.value;
+      if(!role){
+        alert("Please select a role!");
+        return;
+      }
+      if(role === "user"){
+        window.location.href = "about.html";
+      } else if(role === "ngo"){
+        window.location.href = "staff.html";
+      }
+    });
+  </script>
+</body>
+</html>

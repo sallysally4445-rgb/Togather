@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOGATHER | About Us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      transition: 0.2s ease;
+    }
+
+    body {
+      color: #03396c;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER (Transparent like donation page, no blur, no line) ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: rgba(255, 255, 255, 0); /* fully transparent */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+
+    header img {
+      width: 120px;
+      height: auto;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00bcd4;
+    }
+
+    /* ===== HERO IMAGE ===== */
+     .hero-video {
+      position: relative;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.25);
+    }
+    
+    /* ===== HERO TEXT OVERLAY ===== */
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      width: 80%;
+      max-width: 900px;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: rgba(0, 188, 212, 0.8);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .hero-btn:hover {
+      background: rgba(0, 188, 212, 1);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    /* ===== TEXT CONTENT ===== */
+    .text {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+      color: #03396c;
+    }
+
+    .paragraphs { margin-bottom: 40px; }
+    .paragraphs h1 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: #011f4b;
+    }
+    .paragraphs p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #03396c;
+    }
+
+    /* ===== CHAT ICON ===== */
+    .chat-icon {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #005f99;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .chat-icon:hover {
+      background-color: #3979da;
+      transform: scale(1.1);
+    }
+
+    /* ===== CHAT BOX (Glassy Style) ===== */
+    .chat-box {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      bottom: 100px;
+      right: 25px;
+      width: 340px;
+      height: 420px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      overflow: hidden;
+      z-index: 101;
+      animation: slideUp 0.4s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .chat-header {
+      background: rgba(0,95,153,0.8);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      font-size: 15px;
+    }
+
+    .chat-message {
+      margin: 8px 0;
+      max-width: 80%;
+      padding: 10px;
+      border-radius: 15px;
+      line-height: 1.4;
+      backdrop-filter: blur(5px);
+      color: #011f4b;
+    }
+
+    .chat-message.user {
+      background: rgba(179,217,255,0.5);
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .chat-message.ngo {
+      background: rgba(230,242,255,0.5);
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .chat-message.bot {
+      background: rgba(204,229,255,0.5);
+      margin-right: auto;
+      text-align: left;
+      font-style: italic;
+    }
+
+    .chat-footer {
+      display: flex;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+    }
+
+    .chat-footer input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      border-radius: 15px 0 0 15px;
+      outline: none;
+      background: rgba(255,255,255,0.25);
+      color: #011f4b;
+    }
+
+    .chat-footer button {
+      background: rgba(0,95,153,0.8);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 0 15px 15px 0;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .chat-footer button:hover {
+      background: rgba(57,121,218,0.8);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 40px 10%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+    :root {
+      --primary: #00bfff;
+      --dark-bg: rgba(0, 0, 0, 0.8);
+      --light-bg: #f8f9fa;
+      --text-dark: #222;
+      --text-light: #fff;
+    }
+
+    .col {
+      flex: 1 1 200px;
+    }
+
+    .col h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      border-left: 4px solid var(--primary);
+      padding-left: 8px;
+    }
+
+    .col p,
+    .col a {
+      color: #ddd;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      display: block;
+      text-decoration: none;
+    }
+
+    .col a:hover {
+      color: var(--primary);
+    }
+
+    .social-icons i {
+      margin: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .social-icons i:hover { color: #00bcd4; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+      
+      header {
+        padding: 15px 20px;
+      }
+      
+      nav a {
+        margin: 0 8px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      .hero-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-logo">
+      <img src="Logo.png" alt="TOGATHER Logo">
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="About.html">About</a>
+      <a href="newss.html">News</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="donate.html">Donate</a>
+      <a href="tracker.html">Tracker</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="login.html"><i class="fas fa-user"></i></a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION WITH VIDEO AND TEXT -->
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Together for a Cleaner Planet</h1>
+      <p>Join our mission to protect oceans from industrial waste and promote sustainable practices worldwide</p>
+      <a href="#get-involved" class="hero-btn">Get Involved</a>
+    </div>
+  </div>
+
+  <!-- TEXT CONTENT -->
+  <div class="text">
+    <div class="paragraphs">
+      <h1>About Us</h1>
+      <p>Welcome to TOGATHER, an initiative committed to promoting sustainable management of industrial waste and protecting our oceans from pollution.
+We believe that meaningful change begins when people and organizations come together sharing knowledge, taking responsibility, and acting for a cleaner environment.
+
+TOGATHER serves as a platform for education, awareness, and collaboration, aiming to reduce the harmful impact of industrial activities on marine ecosystems.
+By connecting industries, communities, and individuals, we strive to turn environmental challenges into opportunities for innovation and sustainability.</p>
+    </div>
+    <div class="paragraphs">
+      <h1>Our Mission</h1>
+      <p>Our mission at TOGATHER is to inspire and empower collective action toward a greener and cleaner planet.</p>
+  
+<p>We are dedicated to:</p>
+<ul style="margin-left: 20px; font-size: 18px; line-height: 1.6;">
+  <li>Promoting eco-friendly practices in industrial waste management</li>
+  <li>Raising awareness about marine pollution and its global impact</li>
+  <li>Encouraging recycling, waste reduction, and resource efficiency</li>
+  <li>Supporting projects and initiatives that restore and protect marine environments</li>
+  <li>Building a community united by environmental responsibility and sustainable living</li>
+</ul>
+
+<p>Together, we can create a future where progress and nature exist in harmony.</p>
+    </div>
+   <div class="paragraphs" id="get-involved">
+      <h1>Get Involved</h1>
+      <p>Whether you're a student, professional, or nature lover TOGATHER welcomes you to be part of our journey. Together, we can make a lasting difference for our planet.</p>
+      <p>Support our mission:</p>
+      <p>
+  👉 <a href="donate.html"><b>Donate</b></a> to help fund our environmental and awareness initiatives.<br>
+  👉 <a href="volunteer.html"><b>Volunteer</b></a> to take part in cleanups, campaigns, and sustainability projects.
+</p>
+    </div>
+  </div>
+
+  <!-- CHAT ICON -->
+  <button class="chat-icon" id="chatIcon"><i class="fas fa-comments"></i></button>
+
+  <!-- CHAT BOX -->
+  <div class="chat-box" id="chatBox">
+    <div class="chat-header">💬 Chat with NGO Support</div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-footer">
+      <input type="text" id="userMessage" placeholder="Type a message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="col"><img src="Logo.png" width="150"></div>
+    <div class="col">
+      <h3>Office</h3>
+      <p>Beirut, Lebanon</p>
+      <p class="email-id">Togather@outlook.com</p>
+    </div>
+    <div class="col">
+      <h3>Contact</h3>
+      <p>+961 71 234 567</p>
+      <p>+961 71 987 654</p>
+    </div>
+    <div class="col">
+      <h3>Follow us</h3>
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CHAT SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwh0XKzZx_7swkunaE9LdMzJzm73hd-M4",
+      authDomain: "togather-b1b1e.firebaseapp.com",
+      databaseURL: "https://togather-b1b1e-default-rtdb.europe-west1.firebasedatabase.app/",
+      projectId: "togather-b1b1e",
+      storageBucket: "togather-b1b1e.firebasestorage.app",
+      messagingSenderId: "44660039561",
+      appId: "1:44660039561:web:744415b60ba559a77b0b58",
+      measurementId: "G-PPM4NTH50Q"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const chatRef = ref(db, "chat");
+
+    const chatIcon = document.getElementById("chatIcon");
+    const chatBox = document.getElementById("chatBox");
+    const chatBody = document.getElementById("chatBody");
+    const sendBtn = document.getElementById("sendBtn");
+    const userMessage = document.getElementById("userMessage");
+
+    let tempBotId = null;
+
+    chatIcon.addEventListener("click", () => {
+      chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+    });
+
+    function autoReply(userText) {
+      let reply = "Thank you for your question! Our staff will respond shortly.";
+      const text = userText.toLowerCase();
+      if (text.includes("volunteer")) reply = "Our volunteer coordinator will contact you soon.";
+      if (text.includes("donate") || text.includes("fund")) reply = "Our donation team will guide you shortly.";
+      if (text.includes("event")) reply = "We will provide event details soon.";
+      if (text.includes("ngo") || text.includes("support")) reply = "Our NGO team will respond shortly.";
+
+      const div = document.createElement("div");
+      div.classList.add("chat-message", "bot");
+      div.textContent = reply;
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      tempBotId = div;
+    }
+
+    sendBtn.addEventListener("click", () => {
+      const text = userMessage.value.trim();
+      if (text === "") return;
+
+      push(chatRef, { sender: "User", text: text, timestamp: Date.now() });
+      userMessage.value = "";
+      autoReply(text);
+    });
+
+    onChildAdded(chatRef, snapshot => {
+      const msg = snapshot.val();
+      if (!msg || !msg.text || !msg.sender) return;
+
+      if (tempBotId && msg.sender !== "User") {
+        chatBody.removeChild(tempBotId);
+        tempBotId = null;
+      }
+
+      const div = document.createElement("div");
+      div.classList.add("chat-message");
+      if (msg.sender === "User") {
+        div.classList.add("user");
+        div.innerHTML = `<strong>You:</strong> ${msg.text}`;
+      } else {
+        div.classList.add("ngo");
+        div.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
+      }
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    });
+
+    userMessage.addEventListener("keypress", e => {
+      if (e.key === "Enter") { e.preventDefault(); sendBtn.click(); }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOGATHER | News</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* ===== BACKGROUND VIDEO ===== */
+    #background-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    /* ===== HEADER (same as volunteer) ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .nav-logo-img {
+      width: 120px;
+      height: auto;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00bcd4;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      min-width: 160px;
+      border-radius: 8px;
+      z-index: 10;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: rgba(0, 188, 212, 0.5);
+    }
+
+    /* ===== BODY ===== */
+    body {
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .wrapper {
+      margin-top: 100px;
+      padding: 0 10%;
+      padding-bottom: 30px;
+      text-transform: capitalize;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 45px;
+      text-align: center;
+      padding-bottom: 20px;
+      text-shadow: 0 15px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .Outerbox {
+      display: grid;
+      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      justify-content: center;
+    }
+
+    .box {
+      width: 300px;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      margin: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+    }
+
+    .box img {
+      height: 150px;
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .box h3 {
+      padding: 10px 0;
+      font-size: 20px;
+      color: #000;
+    }
+
+    .box p {
+      font-size: 15px;
+      line-height: 1.6;
+      max-height: 100px;
+      overflow: hidden;
+      text-align: justify;
+    }
+
+    .btn {
+      color: #fff;
+      background: #00bcd4;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 10px;
+      padding: 8px 15px;
+      display: inline-block;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background: #0194a8;
+      transform: scale(1.03);
+    }
+
+    /* ===== FOOTER (same as volunteer) ===== */
+    footer {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      color: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 30px 0;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      margin-top: 40px;
+    }
+
+    :root {
+      --primary: #00bfff;
+      --dark-bg: rgba(0, 0, 0, 0.8);
+      --light-bg: #f8f9fa;
+      --text-dark: #222;
+      --text-light: #fff;
+    }
+
+    .col {
+      flex: 1 1 200px;
+    }
+
+    .col h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      border-left: 4px solid var(--primary);
+      padding-left: 8px;
+    }
+
+    .col p,
+    .col a {
+      color: #ddd;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      display: block;
+      text-decoration: none;
+    }
+
+    .col a:hover {
+      color: var(--primary);
+    }
+
+    .social-icons i {
+      margin: 10px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .social-icons i:hover { color: #00bcd4; }
+
+    @media (max-width: 770px) {
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .wrapper {
+        padding: 0 5%;
+      }
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== BACKGROUND VIDEO ===== -->
+  <video autoplay muted loop id="background-video">
+    <source src="Sea.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div id="overlay"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="nav-logo">
+      <img src="Logo.png" alt="TOGATHER Logo" class="nav-logo-img" />
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="About.html">About</a>
+      <a href="newss.html">News</a>
+      <a href="volunteer.html">Volunteer</a>
+      <a href="donate.html">Donate</a>
+      <a href="tracker.html">Tracker</a>
+      <a href="feedback.html">Feedback</a>
+      </div>
+      <a href="login.html"><i class="fas fa-user"></i></a>
+    </nav>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="wrapper">
+    <h1>News</h1>
+    <div class="Outerbox">
+      <div class="box">
+        <img src="newws1.jpg" alt="News 1" />
+        <h3>Solid Waste and Marine Litter Management</h3>
+        <p>The UNEP Caribbean Environment Programme focuses on tackling marine litter and poor solid waste management, major causes of pollution in the region. Most marine litter, especially plastics, comes from land-based waste that enters waterways due to weak waste collection and recycling systems. The programme works to improve waste management, reduce marine plastics, and support projects such as community cleanups, studies on plastic pollution in fish, and regional partnerships like the “Trash Free Waters” initiative in Jamaica and Panama. It emphasizes collaboration, innovation, and stronger infrastructure to protect Caribbean marine ecosystems and coastal economies.</p>
+        <a href="https://www.unep.org/cep/solid-waste-and-marine-litter-management" class="btn">Read more</a>
+      </div>
+
+      <div class="box">
+        <img src="news2.jpg" alt="News 2" />
+        <h3>What will we do with the trash?
+        </h3>
+        <p>The Ocean Cleanup focuses on turning collected plastic waste into valuable resources through proper waste management and valorization. Ocean plastics, which are often degraded, are processed under strict traceability and certification standards, while river waste is handled through local partnerships based on available infrastructure. The organization transforms reusable plastics into durable products, like sunglasses made from ocean plastic, and ensures non-recyclable waste is responsibly disposed of through landfills or waste-to-energy systems. Their main goal is to create value from waste and reduce pollution by viewing waste as a resource, not just debris.</p>
+        <a href="https://theoceancleanup.com/waste-management-and-valorization/" class="btn">Read more</a>
+      </div>
+
+      <div class="box">
+        <img src="new3.jpg" alt="News 3" />
+        <h3>Effective Plastic Waste Solutions</h3>
+        <p>The article by TONTOTON covers the urgent challenge of plastic waste entering oceans, and outlines key strategies to tackle the problem: reducing plastic production and consumption (especially single-use plastics), strengthening waste collection and recycling systems, implementing extended producer responsibility (EPR) schemes, fostering community-led clean-ups and education, advancing innovation in materials and recycling technologies, and promoting international cooperation and strong policy frameworks. It stresses that while these solutions show promise, significant obstacles like high costs, political will and behavioural change remain.</p>
+        <a href="https://tontoton.com/effective-plastic-waste-solutions-strategies-for-reducing-marine-pollution/" class="btn">Read more</a>
+      </div>
+
+      <div class="box">
+        <img src="new4.jpg" alt="News 4" />
+        <h3>Ocean Action for Sustainability</h3>
+        <p>A high-level UNEP event focuses on global cooperation to tackle plastic pollution and promote sustainable ocean
+          management for future generations.</p>
+        <a href="https://sdgs.un.org/news/ocean-action-sustainability-building-global-vision-tackle-plastic-pollution-high-level-unep" class="btn">Read more</a>
+      </div>
+
+      <div class="box">
+        <img src="news6.jpg" alt="News 5" />
+        <h3>Our Ocean Conference</h3>
+        <p>The EU’s "Our Ocean Conference" brought together global leaders to make tangible commitments toward reducing
+          pollution, promoting sustainable fisheries, and protecting marine life.</p>
+        <a href="https://sdgs.un.org/news/our-ocean-conference-46" class="btn">Read more</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="col">
+      <img src="Logo.png" class="logo" width="150" />
+    </div>
+    <div class="col">
+      <h3>Office</h3>
+      <p>Beirut, Lebanon</p>
+      <p class="email-id">Togather@outlook.com</p>
+    </div>
+    <div class="col">
+      <h3>Contact</h3>
+      <p>+961 71 234 567</p>
+      <p>+961 71 987 654</p>
+    </div>
+    <div class="col">
+      <h3>Follow us</h3>
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
